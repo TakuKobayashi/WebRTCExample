@@ -1,0 +1,22 @@
+{
+  "name": "webrtc_sample",
+  "version": "0.0.1",
+  "description": "A simple chat client using socket.io and websocket",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "TakuKobayashi",
+  "private": false,
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "nodemon": "^1.19.0",
+    "npm": "^6.9.0",
+    "underscore": "^1.9.1",
+    "uuid": "^3.3.2",
+    "ws": "^7.0.0"
+  }
+}
