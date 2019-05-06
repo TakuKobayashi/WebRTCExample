@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
+
+<body>
+  <section id="home"></select>
+  <button id="capture">取得開始</button>
+  <video></video>
+  <div style="display:none">
+    <canvas id="canvas"></canvas>
+  </div>
+
+  <script>
+//    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+    const host = window.document.location.host;
+    const video = document.querySelector('video');
+    const canvas = document.getElementById("canvas");
+    const captureButton = document.getElementById("capture");
+    captureButton.addEventListener('click', async(event) => {
+      try{
+        const mediaStream = await navigator.mediaDevices.getUserMedia({
+          video: true,
+          audio: true
+        });
+        video.srcObject = mediaStream;
+        video.autoplay = true;
+        video.setAttribute('plysinline', 'true');
+      }catch(error){
+        console.error(error);
+        alert('cannnot use device')
+      }
+      event.preventDefault();
+    });
+
+    video.addEventListener("loadedmetadata", function (e) {
+      //canvasにカメラの映像のサイズを設定
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      //getContextで描画先を取得
+      const ctx = canvas.getContext("2d");
+      //毎フレームの実行処理
+      setInterval(function (e) {
+        //videoタグの描画をコンテキストに描画
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        console.log(imageData);
+      }, 33);
+    });
+  </script>
+</body>
+
+</html>
